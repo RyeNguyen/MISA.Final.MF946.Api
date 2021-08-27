@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.Entity.MISA.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +18,13 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Mã nhân viên
         /// </summary>
-        /// [MISARequired("Mã nhân viên")]
+        [MISARequired("Mã nhân viên")]
         public string EmployeeCode { get; set; }
 
         /// <summary>
         /// Họ và tên nhân viên
         /// </summary>
-        /// [MISARequired("Họ và tên")]
+        [MISARequired("Họ và tên")]
         public string FullName { get; set; }
 
         /// <summary>
@@ -39,6 +40,7 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// ID đơn vị
         /// </summary>
+        [MISARequired("Đơn vị")]
         public Guid? DepartmentId { get; set; }
 
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MISA.ApplicationCore.Interfaces.Repositories;
+using MISA.ApplicationCore.Interfaces.Services;
+using MISA.Entity.MISA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +12,20 @@ namespace MISA.MF946.Final.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class DepartmentsController : BaseEntityController<Department>
     {
+        #region Declares
+        private readonly IDepartmentService _departmentService;
+        private readonly IDepartmentRepository _departmentRepository;
+        #endregion
+
+        #region Constructor
+        public DepartmentsController(IDepartmentService departmentService,
+            IDepartmentRepository departmentRepository) : base(departmentService, departmentRepository)
+        {
+            _departmentService = departmentService;
+            _departmentRepository = departmentRepository;
+        }
+        #endregion
     }
 }
