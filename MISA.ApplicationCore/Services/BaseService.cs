@@ -110,16 +110,7 @@ namespace MISA.ApplicationCore.Services
                 return _serviceResponse;
             }
 
-            var codeDigitList = new List<int>();
-            foreach (var code in codeList)
-            {
-                var codeDigit = int.Parse(code[2..]);
-                codeDigitList.Add(codeDigit);
-            }
-
-            codeDigitList.Sort((x, y) => y.CompareTo(x));
-
-            _serviceResponse.Data = codeList[0].Substring(0, 2) + (codeDigitList[0] + 1).ToString();
+            _serviceResponse.Data = codeList[0].Substring(0, 3) + (int.Parse(codeList[0][3..]) + 1).ToString();
             _serviceResponse.MISACode = MISACode.IsValid;
             return _serviceResponse;
         }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MISA.MF946.Final.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class EmployeesController : BaseEntityController<Employee>
     {
@@ -45,7 +45,7 @@ namespace MISA.MF946.Final.Api.Controllers
             {
                 var serviceResponse = _employeeService.Pagination(employeeFilter, pageIndex, pageSize);
 
-                if ((int)serviceResponse.Data.GetType().GetProperty("totalRecord").GetValue(serviceResponse.Data) != 0)
+                if ((int)serviceResponse.Data.GetType().GetProperty("totalRecords").GetValue(serviceResponse.Data) != 0)
                 {
                     return StatusCode(200, serviceResponse.Data);
                 }

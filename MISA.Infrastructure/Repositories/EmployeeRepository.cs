@@ -37,18 +37,19 @@ namespace MISA.Infrastructure.Repositories
                 parameters.Add("@PageIndex", pageIndex);
                 parameters.Add("@PageSize", pageSize);
 
-                parameters.Add("@TotalRecord", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                parameters.Add("@TotalPage", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("@TotalRecords", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("@TotalPages", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                var data = _dbConnection.Query<Employee>($"Proc_EmployeePagingAndFilter", param: parameters, commandType: CommandType.StoredProcedure);
+                var storeName = "Proc_EmployeePagingAndFilter";
+                var data = _dbConnection.Query<Employee>(storeName, param: parameters, commandType: CommandType.StoredProcedure);
 
-                var totalPage = parameters.Get<int>("@TotalPage");
-                var totalRecord = parameters.Get<int>("@TotalRecord");
+                var totalPages = parameters.Get<int>("@TotalPages");
+                var totalRecords = parameters.Get<int>("@TotalRecords");
 
                 var pagingData = new
                 {
-                    totalPage,
-                    totalRecord,
+                    totalPages,
+                    totalRecords,
                     data
                 };
 

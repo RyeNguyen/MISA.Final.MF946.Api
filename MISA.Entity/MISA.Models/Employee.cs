@@ -87,12 +87,12 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Tài khoản ngân hàng
         /// </summary>
-        public string BackAccount { get; set; }
+        public string BankAccount { get; set; }
 
         /// <summary>
         /// Tên ngân hàng
         /// </summary>
-        public string BackName { get; set; }
+        public string BankName { get; set; }
 
         /// <summary>
         /// Chi nhánh ngân hàng
