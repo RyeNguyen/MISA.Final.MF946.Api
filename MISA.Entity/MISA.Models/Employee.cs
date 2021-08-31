@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MISA.Entity.MISA.Models
 {
-    public class Employee
+    public class Employee : BaseEntity
     {
         #region Declares
         /// <summary>
@@ -42,6 +42,16 @@ namespace MISA.Entity.MISA.Models
         /// </summary>
         [MISARequired("Đơn vị")]
         public Guid? DepartmentId { get; set; }
+
+        /// <summary>
+        /// Mã đơn vị
+        /// </summary>
+        public string DepartmentCode { get; set; }
+
+        /// <summary>
+        /// Tên đơn vị
+        /// </summary>
+        public string DepartmentName { get; set; }
 
         /// <summary>
         /// Tên vị trí

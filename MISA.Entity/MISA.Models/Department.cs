@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MISA.Entity.MISA.Models
 {
-    public class Department
+    public class Department : BaseEntity
     {
         /// <summary>
         /// Id đơn vị

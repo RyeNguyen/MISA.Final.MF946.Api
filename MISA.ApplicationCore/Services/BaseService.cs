@@ -308,21 +308,25 @@ namespace MISA.ApplicationCore.Services
         {
             var emailFormat = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
 
-            var isMatch = Regex.IsMatch(entity.GetType().GetProperty("Email").GetValue(entity).ToString(), emailFormat, RegexOptions.IgnoreCase);
-
-            if (isMatch == false)
+            if (entity.GetType().GetProperty("Email").GetValue(entity) != null)
             {
-                var errorObj = new
+                var isMatch = Regex.IsMatch(entity.GetType().GetProperty("Email").GetValue(entity).ToString(), emailFormat, RegexOptions.IgnoreCase);
+
+                if (isMatch == false)
                 {
-                    devMsg = Entity.Properties.MessageErrorVN.messageErrorEmailFormat,
-                    userMsg = Entity.Properties.MessageErrorVN.messageErrorEmailFormat,
-                    Code = MISACode.NotValid
-                };
-                _serviceResponse.Message = Entity.Properties.MessageErrorVN.messageErrorEmailFormat;
-                _serviceResponse.MISACode = MISACode.NotValid;
-                _serviceResponse.Data = errorObj;
-                return _serviceResponse;
+                    var errorObj = new
+                    {
+                        devMsg = Entity.Properties.MessageErrorVN.messageErrorEmailFormat,
+                        userMsg = Entity.Properties.MessageErrorVN.messageErrorEmailFormat,
+                        Code = MISACode.NotValid
+                    };
+                    _serviceResponse.Message = Entity.Properties.MessageErrorVN.messageErrorEmailFormat;
+                    _serviceResponse.MISACode = MISACode.NotValid;
+                    _serviceResponse.Data = errorObj;
+                    return _serviceResponse;
+                }
             }
+            
             _serviceResponse.MISACode = MISACode.IsValid;
             return _serviceResponse;
         }

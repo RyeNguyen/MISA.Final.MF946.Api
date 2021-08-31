@@ -198,7 +198,7 @@ namespace MISA.MF946.Final.Api.Controllers
 
                 if (updateResult.MISACode == MISACode.IsValid && (int)updateResult.Data > 0)
                 {
-                    return Created(Entity.Properties.MessageSuccessVN.messageSuccessUpdate, updateResult.Data);
+                    return Ok(updateResult.Data);
                 }
                 else
                 {

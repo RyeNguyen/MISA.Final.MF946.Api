@@ -178,14 +178,15 @@ namespace MISA.Infrastructure.Repositories
                     //Thêm param tương ứng với mỗi property của đối tượng:
                     if (propName != $"{_className}Id")
                     {
-                        if (propValue != null)
-                        {
-                            dynamicParams.Add($"@{propName}", propValue);
-                        }
-                        else
-                        {
-                            dynamicParams.Add($"@{propName}");
-                        }
+                        dynamicParams.Add($"@{propName}", propValue);
+                    //    if (propValue != null)
+                    //    {
+                    //        dynamicParams.Add($"@{propName}", propValue);
+                    //    }
+                    //    else
+                    //    {
+                    //        dynamicParams.Add($"@{propName}");
+                    //    }
                     }
                 }
 
