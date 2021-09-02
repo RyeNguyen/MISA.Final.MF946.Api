@@ -45,14 +45,8 @@ namespace MISA.MF946.Final.Api.Controllers
             {
                 var serviceResponse = _employeeService.Pagination(employeeFilter, pageIndex, pageSize);
 
-                if ((int)serviceResponse.Data.GetType().GetProperty("totalRecords").GetValue(serviceResponse.Data) != 0)
-                {
-                    return StatusCode(200, serviceResponse.Data);
-                }
-                else
-                {
-                    return NoContent();
-                }
+                return StatusCode(200, serviceResponse.Data);
+
             }
             catch (Exception)
             {
