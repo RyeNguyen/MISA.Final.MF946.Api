@@ -2,10 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using MISA.ApplicationCore.Interfaces.Repositories;
 using MISA.ApplicationCore.Interfaces.Services;
+using MISA.Entity.MISA.Attributes;
 using MISA.Entity.MISA.Models;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MISA.MF946.Final.Api.Controllers
@@ -46,7 +50,6 @@ namespace MISA.MF946.Final.Api.Controllers
                 var serviceResponse = _employeeService.Pagination(employeeFilter, pageIndex, pageSize);
 
                 return StatusCode(200, serviceResponse.Data);
-
             }
             catch (Exception)
             {
@@ -60,6 +63,56 @@ namespace MISA.MF946.Final.Api.Controllers
 
         }
         #endregion
+
+        /// <summary>
+        /// Hàm xuất khẩu dữ liệu excel
+        /// </summary>
+        /// <returns>File để download</returns>
+        /// Author: NQMinh (02/09/2021)
+        [HttpPost("export")]
+        public async Task<IActionResult> ExportExcel()
+        {
+            await Task.Yield();
+
+            var stream = new MemoryStream();
+            var employees = new List<Employee>();
+
+            var properties = typeof(Employee).GetProperties();
+
+            using (var package = new ExcelPackage(stream))
+            {
+
+                var workSheet = package.Workbook.Worksheets.Add("Sheet1");
+                workSheet.Cells.LoadFromCollection(employees, true);
+                var column = 1;
+
+                foreach (var prop in properties)
+                {
+                    var exportProp = prop.GetCustomAttributes(typeof(MISAExported), true);
+
+                    workSheet.Cells.AutoFitColumns();
+
+                    if (!(exportProp.Length == 1))
+                    {
+                        workSheet.Column(column).Hidden = true;
+                    }
+
+                    if (prop.PropertyType.Name.Contains(typeof(Nullable).Name) && prop.PropertyType.GetGenericArguments()[0] == typeof(DateTime))
+                    {
+                        workSheet.Column(column).Style.Numberformat.Format = "mm/dd/yyyy";
+                    }
+
+                    column++;
+                }
+
+                package.Save();
+            }
+
+            stream.Position = 0;
+            string fileName = $"DanhSachNhanVien.xlsx";
+
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
         #endregion
     }
 }

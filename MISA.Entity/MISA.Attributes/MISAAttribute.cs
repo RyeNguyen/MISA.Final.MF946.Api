@@ -18,4 +18,12 @@ namespace MISA.Entity.MISA.Attributes
             _message = $"Thông tin {_fieldName} không được để trống.";
         }
     }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class MISAExported : Attribute
+    {
+        public MISAExported()
+        {
+        }
+    }
 }

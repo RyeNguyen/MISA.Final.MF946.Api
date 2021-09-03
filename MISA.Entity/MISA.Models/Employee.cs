@@ -19,22 +19,26 @@ namespace MISA.Entity.MISA.Models
         /// Mã nhân viên
         /// </summary>
         [MISARequired("Mã nhân viên")]
+        [MISAExported]
         public string EmployeeCode { get; set; }
 
         /// <summary>
         /// Họ và tên nhân viên
         /// </summary>
         [MISARequired("Họ và tên")]
+        [MISAExported]
         public string FullName { get; set; }
 
         /// <summary>
         /// Ngày tháng năm sinh
         /// </summary>
+        [MISAExported]
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
         /// Giới tính
         /// </summary>
+        [MISAExported]
         public int? Gender { get; set; }
 
         /// <summary>
@@ -51,11 +55,13 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Tên đơn vị
         /// </summary>
+        [MISAExported]
         public string DepartmentName { get; set; }
 
         /// <summary>
         /// Tên vị trí
         /// </summary>
+        [MISAExported]
         public string PositionName { get; set; }
 
         /// <summary>
@@ -97,11 +103,13 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Tài khoản ngân hàng
         /// </summary>
+        [MISAExported]
         public string BankAccount { get; set; }
 
         /// <summary>
         /// Tên ngân hàng
         /// </summary>
+        [MISAExported]
         public string BankName { get; set; }
 
         /// <summary>

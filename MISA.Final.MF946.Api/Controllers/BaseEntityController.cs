@@ -63,6 +63,57 @@ namespace MISA.MF946.Final.Api.Controllers
         }
         #endregion
 
+        #region Lấy toàn bộ mã
+        [HttpGet("code")]
+        public IActionResult GetAllCode()
+        {
+            try
+            {
+                var codeList = _baseRepository.GetAllCode();
+                if (codeList.Count > 0)
+                {
+                    return Ok(codeList);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            } 
+            catch(Exception)
+            {
+                var errorObj = new
+                {
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorGetAllCode,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorGetAllCode,
+                    Code = MISACode.NotValid
+                };
+                return BadRequest(errorObj);
+            }
+        }
+        #endregion
+
+        #region Kiểm tra mã trùng
+        [HttpPost("duplicatedCode")]
+        public IActionResult CheckDuplicatedCode([FromBody] string checkedCode)
+        {
+            try
+            {
+                var response = _baseRepository.CheckDuplicateCode(checkedCode);
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+                var errorObj = new
+                {
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorDuplicateCode,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorDuplicateCode,
+                    Code = MISACode.NotValid
+                };
+                return BadRequest(errorObj);
+            }
+        }
+        #endregion
+
         #region Lấy dữ liệu qua ID
         /// <summary>
         /// Lấy dữ liệu qua ID
