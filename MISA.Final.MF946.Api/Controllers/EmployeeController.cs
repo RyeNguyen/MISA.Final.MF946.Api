@@ -74,7 +74,7 @@ namespace MISA.MF946.Final.Api.Controllers
         public IActionResult Export([FromQuery] int pageIndex, [FromQuery] int pageSize, [FromQuery] string employeeFilter)
         {
 
-            var stream = _employeeService.ExportEmployee(pageIndex, pageSize, employeeFilter, true);
+            var stream = _employeeService.ExportEmployee(employeeFilter, pageIndex, pageSize, true);
 
             string excelName = $"DanhSachNhanVien.xlsx";
 
