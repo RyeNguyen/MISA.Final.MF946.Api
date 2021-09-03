@@ -25,9 +25,11 @@ namespace MISA.Infrastructure.Repositories
         /// <param name="employeeFilter">Dữ liệu cần lọc</param>
         /// <param name="pageIndex">Trang hiện tại</param>
         /// <param name="pageSize">Số bản ghi một trang</param>
+        /// <param name="dataOnly">Kiểm tra có muốn lấy tổng số bản ghi hay không</param>
         /// <returns>Dữ liệu phân trang</returns>
         /// Author: NQMinh (27/08/2021)
-        public object Pagination(string employeeFilter, int pageIndex, int pageSize)
+        /// Modified: NQMinh (03/09/2021)
+        public dynamic Pagination(string employeeFilter, int pageIndex, int pageSize, bool dataOnly)
         {
             using (_dbConnection = new MySqlConnection(_connectionString))
             {
@@ -53,7 +55,14 @@ namespace MISA.Infrastructure.Repositories
                     data
                 };
 
-                return pagingData;
+                if (dataOnly)
+                {
+                    return data.ToList();
+                }
+                else
+                {
+                    return pagingData;
+                }
             }
         }
     }

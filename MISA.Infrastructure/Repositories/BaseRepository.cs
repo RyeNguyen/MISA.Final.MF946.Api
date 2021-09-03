@@ -23,7 +23,7 @@ namespace MISA.Infrastructure.Repositories
         #region Constructor
         public BaseRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("MisaFinal");
+            _connectionString = configuration.GetConnectionString("MisaFinalLocal");
             _className = typeof(MISAEntity).Name;
         }
         #endregion

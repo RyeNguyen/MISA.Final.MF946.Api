@@ -15,8 +15,9 @@ namespace MISA.ApplicationCore.Interfaces.Repositories
         /// <param name="employeeFilter">Dữ liệu cần lọc (có thể là mã, tên nhân viên hoặc số điện thoại)</param>
         /// <param name="pageIndex">Trang hiện tại</param>
         /// <param name="pageSize">Số bản ghi một trang</param>
+        /// <param name="dataOnly">Có muốn lấy số bản ghi hay không</param>
         /// <returns>Dữ liệu phân trang</returns>
         /// Author: NQMinh (26/08/2021)
-        public object Pagination(string employeeFilter, int pageIndex, int pageSize);
+        public dynamic Pagination(string employeeFilter, int pageIndex, int pageSize, bool dataOnly);
     }
 }

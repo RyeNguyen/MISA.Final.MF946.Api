@@ -47,7 +47,7 @@ namespace MISA.MF946.Final.Api.Controllers
         {
             try
             {
-                var serviceResponse = _employeeService.Pagination(employeeFilter, pageIndex, pageSize);
+                var serviceResponse = _employeeService.Pagination(employeeFilter, pageIndex, pageSize, false);
 
                 return StatusCode(200, serviceResponse.Data);
             }
@@ -64,55 +64,23 @@ namespace MISA.MF946.Final.Api.Controllers
         }
         #endregion
 
+        #region Xuất khẩu dữ liệu
         /// <summary>
         /// Hàm xuất khẩu dữ liệu excel
         /// </summary>
         /// <returns>File để download</returns>
         /// Author: NQMinh (02/09/2021)
-        [HttpPost("export")]
-        public async Task<IActionResult> ExportExcel()
+        [HttpGet("export")]
+        public IActionResult Export([FromQuery] int pageIndex, [FromQuery] int pageSize, [FromQuery] string employeeFilter)
         {
-            await Task.Yield();
 
-            var stream = new MemoryStream();
-            var employees = new List<Employee>();
+            var stream = _employeeService.ExportEmployee(pageIndex, pageSize, employeeFilter, true);
 
-            var properties = typeof(Employee).GetProperties();
+            string excelName = $"DanhSachNhanVien.xlsx";
 
-            using (var package = new ExcelPackage(stream))
-            {
-
-                var workSheet = package.Workbook.Worksheets.Add("Sheet1");
-                workSheet.Cells.LoadFromCollection(employees, true);
-                var column = 1;
-
-                foreach (var prop in properties)
-                {
-                    var exportProp = prop.GetCustomAttributes(typeof(MISAExported), true);
-
-                    workSheet.Cells.AutoFitColumns();
-
-                    if (!(exportProp.Length == 1))
-                    {
-                        workSheet.Column(column).Hidden = true;
-                    }
-
-                    if (prop.PropertyType.Name.Contains(typeof(Nullable).Name) && prop.PropertyType.GetGenericArguments()[0] == typeof(DateTime))
-                    {
-                        workSheet.Column(column).Style.Numberformat.Format = "mm/dd/yyyy";
-                    }
-
-                    column++;
-                }
-
-                package.Save();
-            }
-
-            stream.Position = 0;
-            string fileName = $"DanhSachNhanVien.xlsx";
-
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
+        #endregion
         #endregion
     }
 }

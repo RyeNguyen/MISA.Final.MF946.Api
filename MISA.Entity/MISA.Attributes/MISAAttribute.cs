@@ -22,8 +22,10 @@ namespace MISA.Entity.MISA.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class MISAExported : Attribute
     {
-        public MISAExported()
+        public readonly string Name;
+        public MISAExported(string name)
         {
+            this.Name = name;
         }
     }
 }
