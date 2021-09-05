@@ -55,8 +55,8 @@ namespace MISA.MF946.Final.Api.Controllers
             {
                 var errorObj = new
                 {
-                    devMsg = Entity.Properties.MessageErrorVN.messageErrorPagingFilter,
-                    userMsg = Entity.Properties.MessageErrorVN.messageErrorPagingFilter,
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
                 };
                 return StatusCode(500, errorObj);
             }
@@ -73,12 +73,23 @@ namespace MISA.MF946.Final.Api.Controllers
         [HttpGet("export")]
         public IActionResult Export([FromQuery] int pageIndex, [FromQuery] int pageSize, [FromQuery] string employeeFilter)
         {
+            try
+            {
+                var stream = _employeeService.ExportEmployee(employeeFilter, pageIndex, pageSize, true);
 
-            var stream = _employeeService.ExportEmployee(employeeFilter, pageIndex, pageSize, true);
+                string excelName = $"DanhSachNhanVien.xlsx";
 
-            string excelName = $"DanhSachNhanVien.xlsx";
-
-            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+            catch (Exception)
+            {
+                var errorObj = new
+                {
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorExport,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorExport,
+                };
+                return StatusCode(500, errorObj);
+            }
         }
         #endregion
         #endregion

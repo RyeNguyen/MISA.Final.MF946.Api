@@ -64,7 +64,7 @@ namespace MISA.ApplicationCore.Services
             var stream = new MemoryStream();
             var employees = _employeeRepository.Pagination(employeeFilter, pageIndex, pageSize, dataOnly);
 
-            var genderList = new List<string> { "Nữ", "Nam", "Khác", string.Empty };
+            var genderList = new List<string> { "Nam", "Nữ", "Khác", string.Empty };
 
             var properties = typeof(Employee).GetProperties();
             using (var package = new ExcelPackage(stream))

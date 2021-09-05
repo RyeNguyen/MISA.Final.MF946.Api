@@ -88,6 +88,15 @@ namespace MISA.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Không thể xuất khẩu dữ liệu lúc này..
+        /// </summary>
+        public static string messageErrorExport {
+            get {
+                return ResourceManager.GetString("messageErrorExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không thể lấy dữ liệu..
         /// </summary>
         public static string messageErrorGet {

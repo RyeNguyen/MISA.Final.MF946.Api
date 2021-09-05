@@ -129,6 +129,10 @@
     <value>Email không đúng định dạng.</value>
     <comment>Cảnh báo lỗi cho lập trình viên và người dùng khi định dạng email không hợp lệ.</comment>
   </data>
+  <data name="messageErrorExport" xml:space="preserve">
+    <value>Không thể xuất khẩu dữ liệu lúc này.</value>
+    <comment>Cảnh báo lỗi cho lập trình viên và người dùng khi không thể  xuất khẩu dữ liệu ra file excel.</comment>
+  </data>
   <data name="messageErrorGet" xml:space="preserve">
     <value>Không thể lấy dữ liệu.</value>
     <comment>Cảnh báo lỗi cho lập trình viên và người dùng khi không thể lấy dữ liệu.</comment>
